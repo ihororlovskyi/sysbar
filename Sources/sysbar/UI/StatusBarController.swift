@@ -8,9 +8,9 @@ final class StatusBarController: NSObject {
   private let statusItem: NSStatusItem
   private let view: StatusBarView
   private let menu: NSMenu
-  private let cpuItem = NSMenuItem(title: "CPU  —", action: nil, keyEquivalent: "")
-  private let gpuItem = NSMenuItem(title: "GPU  —", action: nil, keyEquivalent: "")
-  private let ramItem = NSMenuItem(title: "RAM  —", action: nil, keyEquivalent: "")
+  private let cpuItem = NSMenuItem(title: "CPU  -", action: nil, keyEquivalent: "")
+  private let gpuItem = NSMenuItem(title: "GPU  -", action: nil, keyEquivalent: "")
+  private let ramItem = NSMenuItem(title: "RAM  -", action: nil, keyEquivalent: "")
   private let halfSecondItem = NSMenuItem(title: "0.5 sec", action: nil, keyEquivalent: "")
   private let oneSecondItem = NSMenuItem(title: "1 sec", action: nil, keyEquivalent: "")
   private let twoSecondsItem = NSMenuItem(title: "2 sec", action: nil, keyEquivalent: "")
@@ -77,7 +77,7 @@ final class StatusBarController: NSObject {
       loginItemMenuItem.state = .off
       loginItemMenuItem.isEnabled = true
     case .requiresApproval:
-      loginItemMenuItem.title = "Launch at Login — Approval Required"
+      loginItemMenuItem.title = "Launch at Login - Approval Required"
       loginItemMenuItem.state = .mixed
       loginItemMenuItem.isEnabled = true
     case .unavailable:

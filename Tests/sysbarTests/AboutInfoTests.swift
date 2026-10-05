@@ -31,8 +31,8 @@ final class AboutInfoTests: XCTestCase {
   }
 
   func test_formatUsesUTCRatherThanLocalTime() {
-    // 2026-01-01 23:30 UTC. Rendered in any zone east of UTC+1 — including the
-    // developer's own — a local formatter would print "02 Jan 26". Only a
+    // 2026-01-01 23:30 UTC. Rendered in any zone east of UTC+1 - including the
+    // developer's own - a local formatter would print "02 Jan 26". Only a
     // UTC-pinned formatter keeps the release date on the day it was stamped.
     let lateInTheUTCDay = Date(timeIntervalSince1970: 1_767_310_200)
     XCTAssertEqual(AboutInfo.format(lateInTheUTCDay), "01 Jan 26")
