@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 _No unreleased changes._
 
-## [0.2.0] — 2026-07-27
+## [0.2.0] - 2026-07-27
 
 ### Added
 
@@ -19,17 +19,17 @@ _No unreleased changes._
 ### Changed
 
 - Renamed from `Chipbar` to `sysbar`: app name, bundle, target, scheme, folders, scripts, CI artifacts, and the Homebrew cask. The release bundle is `sysbar.app`, the release zip is `sysbar-<version>.zip`, and the cask is `sysbar`. Homebrew migrates existing installations automatically via `cask_renames.json`, so `brew upgrade` is enough; manual installs need the old `Chipbar.app` dragged to Trash.
-- `CFBundleIdentifier` is now `com.ihororlovskyi.sysbar` (was `com.ihororlovskyi.chipbar`). The app requests no system permissions, so nothing is lost — but the change moves the `UserDefaults` domain, and settings are **not** migrated. After updating, metric visibility and the refresh interval return to their defaults: CPU and GPU visible, RAM hidden, 1 second cadence.
+- `CFBundleIdentifier` is now `com.ihororlovskyi.sysbar` (was `com.ihororlovskyi.chipbar`). The app requests no system permissions, so nothing is lost - but the change moves the `UserDefaults` domain, and settings are **not** migrated. After updating, metric visibility and the refresh interval return to their defaults: CPU and GPU visible, RAM hidden, 1 second cadence.
 - `About` is no longer a submenu. `About sysbar` opens the standard macOS About panel with the app icon, `Version <version> (<build>)`, release date, a clickable `GitHub` link, and the copyright line.
 - The old hero banner, screenshots, and demo are temporarily removed; they carry the old wordmark and UI, and return after refreshed captures and the new logo.
 - Homebrew 6 requires trusting the third-party cask before installation: `brew trust --cask ihororlovskyi/tap/sysbar`. Because this ad-hoc-signed build remains quarantined, first launch from `/Applications` via right-click `sysbar.app` → `Open` is required for Homebrew and manual installs.
 - `MARKETING_VERSION` and `CURRENT_PROJECT_VERSION` bumped to `0.2.0`.
 
-## [0.1.3] — 2026-05-20
+## [0.1.3] - 2026-05-20
 
 ### Added
 
-- Real `.icns` app icon bundled at `Sources/Chipbar/Resources/AppIcon.icns` (Mono Light variant: silver squircle, dark chip with `Chipbar` wordmark, monochrome CPU / GPU / RAM traces). Wired via `CFBundleIconFile` in `Info.plist` and rendered at every macOS size (16 / 32 / 128 / 256 / 512, 1x + 2x) so Finder / Dock / Cmd-Tab / Launchpad / "Open With" / Spotlight / About panel all show real artwork instead of the generic placeholder. The menu-bar item stays text-only — by design. README banner uses the animated hero SVG (`assets/img/chipbar-hero-animated.svg`).
+- Real `.icns` app icon bundled at `Sources/Chipbar/Resources/AppIcon.icns` (Mono Light variant: silver squircle, dark chip with `Chipbar` wordmark, monochrome CPU / GPU / RAM traces). Wired via `CFBundleIconFile` in `Info.plist` and rendered at every macOS size (16 / 32 / 128 / 256 / 512, 1x + 2x) so Finder / Dock / Cmd-Tab / Launchpad / "Open With" / Spotlight / About panel all show real artwork instead of the generic placeholder. The menu-bar item stays text-only - by design. README banner uses the animated hero SVG (`assets/img/chipbar-hero-animated.svg`).
 - Refresh-interval picker exposes four cadences: `0.5 sec`, `1 sec` (default), `2 sec`, `5 sec`. UserDefaults key bumped from `chipbar.refreshIntervalSeconds` (`Int`) to `chipbar.refreshIntervalSecondsV2` (`Double`); the old value is read once and migrated on first launch so v0.1.2 users keep their cadence. Submenu title renamed `Update every` → `Interval`.
 - Pixel-level `StatusBarView` snapshot tests under `Tests/ChipbarTests/__Snapshots__/` covering 1-, 2-, 3-cell layouts × representative CPU / GPU / RAM percentages. Replaces the visual portion of the manual smoke checklist; AppKit views are drawn offscreen into `NSImage` and byte-compared against reference PNGs.
 
@@ -42,7 +42,7 @@ _No unreleased changes._
 - About submenu collapsed to a single inline info row `Chipbar • v<version> • <dd MMM yy>` above the clickable `GitHub` row. No "Leave feedback" CTA; the `GitHub` row is the only link out.
 - `MARKETING_VERSION` and `CURRENT_PROJECT_VERSION` bumped to `0.1.3`.
 
-## [0.1.2] — 2026-05-18
+## [0.1.2] - 2026-05-18
 
 ### Changed
 
@@ -50,10 +50,10 @@ _No unreleased changes._
 - In-tree references to the GitHub repository slug updated from `ihororlovskyi/chipbar` to `ihororlovskyi/mchip` to match the repository rename: `About → GitHub` row (`StatusBarController.repositoryURL`) and `CHANGELOG.md` compare/release links. GitHub still serves the old URL via 301 redirect, but the in-tree links now point at the canonical location.
 - Homebrew cask renamed `chipbar` → `mchip` in [`ihororlovskyi/homebrew-tap`](https://github.com/ihororlovskyi/homebrew-tap) (`Casks/chipbar.rb` → `Casks/mchip.rb`; internal `cask`/`name`/`url`/`homepage` updated to the new slug). New install command is `brew install --cask mchip`; the cask `url` stanza now also sets `quarantine: false`, so future installs skip the Gatekeeper "Apple could not verify…" prompt on ad-hoc-signed builds. Users on the old cask: run `brew uninstall --cask chipbar && brew install --cask mchip` once to migrate.
 - Release workflow points at the renamed cask (`homebrew-tap/Casks/mchip.rb`, commit message `mchip: <version>`) and the GitHub release title is now `mchip <tag>` instead of `Chip Bar <tag>`.
-- The release `.app` bundle is now named `mchip-v<version>.app` (e.g. `mchip-v0.1.2.app`) instead of `Chipbar.app`. `CFBundleName` and `CFBundleDisplayName` resolve to the same string at build time via `mchip-v$(MARKETING_VERSION)`. `CFBundleIdentifier` stays `com.ihororlovskyi.chipbar`, so LaunchServices treats this as the same app and previously granted permissions are preserved. The cask now declares `app "mchip-v#{version}.app"`. Users on `brew install --cask mchip` will see the previous `/Applications/Chipbar.app` removed and `mchip-v0.1.2.app` installed in its place automatically on `brew upgrade`; manual installs need to drag the old `Chipbar.app` to Trash themselves. The Xcode target, scheme, and the binary inside the bundle (`Contents/MacOS/Chipbar`) are still called `Chipbar` — that rename is tracked for v0.1.3.
+- The release `.app` bundle is now named `mchip-v<version>.app` (e.g. `mchip-v0.1.2.app`) instead of `Chipbar.app`. `CFBundleName` and `CFBundleDisplayName` resolve to the same string at build time via `mchip-v$(MARKETING_VERSION)`. `CFBundleIdentifier` stays `com.ihororlovskyi.chipbar`, so LaunchServices treats this as the same app and previously granted permissions are preserved. The cask now declares `app "mchip-v#{version}.app"`. Users on `brew install --cask mchip` will see the previous `/Applications/Chipbar.app` removed and `mchip-v0.1.2.app` installed in its place automatically on `brew upgrade`; manual installs need to drag the old `Chipbar.app` to Trash themselves. The Xcode target, scheme, and the binary inside the bundle (`Contents/MacOS/Chipbar`) are still called `Chipbar` - that rename is tracked for v0.1.3.
 - `MARKETING_VERSION` and `CURRENT_PROJECT_VERSION` bumped to `0.1.2`.
 
-## [0.1.1] — 2026-05-16
+## [0.1.1] - 2026-05-16
 
 ### Added
 
@@ -62,7 +62,7 @@ _No unreleased changes._
 
 ### Changed
 
-- User-facing app name is now `mchip` (`CFBundleDisplayName`); menu quit item reads `Quit mchip`. Bundle identifier, scheme, target name, scripts, cask, and `UserDefaults` keys remain `chipbar`/`Chipbar` — no migration needed.
+- User-facing app name is now `mchip` (`CFBundleDisplayName`); menu quit item reads `Quit mchip`. Bundle identifier, scheme, target name, scripts, cask, and `UserDefaults` keys remain `chipbar`/`Chipbar` - no migration needed.
 - Status-bar item width is now derived from the number of visible metrics instead of a fixed three-cell width.
 - `MARKETING_VERSION` and `CURRENT_PROJECT_VERSION` bumped to `0.1.1`.
 - `GPUReader` rewritten on top of public IOKit: enumerates `IOAccelerator` services and reads `Device Utilization %` from each one's `PerformanceStatistics` dictionary, taking the maximum across services. The private `libIOReport.dylib` `dlopen` bridge (`IOReportBridge`, `IOReportCopyChannelsInGroup` / `IOReportCreateSubscription` / `IOReportCreateSamples` / `IOReportCreateSamplesDelta`, `GPU Stats` channel filtering, `GPU Idle Residency` parsing, delta-based residency math, `primed`/`previousActive`/`previousTotal` state) is gone. Works on Apple Silicon (AGX) and Intel + AMD/NVIDIA discrete GPUs alike.
@@ -71,7 +71,7 @@ _No unreleased changes._
 
 - GPU usage rendering on Apple Silicon: previously always reported `0%` under load. The new `IOAccelerator` / `Device Utilization %` path returns live utilisation.
 
-## [0.1.0] — 2026-05-16
+## [0.1.0] - 2026-05-16
 
 Initial release.
 
@@ -87,8 +87,8 @@ Initial release.
 - XcodeGen `project.yml` (arm64, manual ad-hoc signing).
 - `xcodebuild` test suite (17 tests covering CPU, GPU, RAM, Sampler, Preferences, Snapshot).
 - GitHub Actions: `ci` (tests on PR / push to main, `macos-15` runner) and `release` (tag-triggered build, sign, zip, GitHub release, Homebrew cask bump).
-- `scripts/build-release.sh` — archive, export, ad-hoc sign, zip; stamps `MARKETING_VERSION` / `CURRENT_PROJECT_VERSION` into `Info.plist`.
-- `scripts/update-cask.sh` — bumps `version` / `sha256` in the tap cask.
+- `scripts/build-release.sh` - archive, export, ad-hoc sign, zip; stamps `MARKETING_VERSION` / `CURRENT_PROJECT_VERSION` into `Info.plist`.
+- `scripts/update-cask.sh` - bumps `version` / `sha256` in the tap cask.
 - Homebrew tap at [`ihororlovskyi/homebrew-tap`](https://github.com/ihororlovskyi/homebrew-tap), installable via `brew install --cask chipbar`.
 
 [Unreleased]: https://github.com/ihororlovskyi/sysbar/compare/v0.2.0...HEAD
