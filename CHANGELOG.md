@@ -13,7 +13,7 @@ _No unreleased changes._
 
 ### Added
 
-- `Launch at Login` toggle in the dropdown, backed by `SMAppService`. The row mirrors the real system state and is re-read every time the menu opens, so revoking the login item in System Settings is reflected immediately. When macOS reports that the registration is waiting for approval, the row reads `Launch at Login — Approval Required` and opens `System Settings → General → Login Items` instead of registering again.
+- `Launch at Login` toggle in the dropdown, backed by `SMAppService`. The row mirrors the real system state and is re-read every time the menu opens, so revoking the login item in System Settings is reflected immediately. When macOS reports that the registration is waiting for approval, the row reads `Launch at Login - Approval Required` and opens `System Settings → General → Login Items` instead of registering again.
 - Release date is now stamped into the app bundle at build time (`SysbarReleaseDate`) and shown in the About panel. Local development builds fall back to the executable's modification date.
 
 ### Changed

@@ -32,7 +32,7 @@ xcodebuild \
 
 APP="$EXPORT_DIR/sysbar.app"
 
-# Stamp the release date before signing — editing Info.plist afterwards breaks
+# Stamp the release date before signing - editing Info.plist afterwards breaks
 # the signature.
 RELEASE_DATE=$(date -u +%Y-%m-%d)
 /usr/libexec/PlistBuddy -c "Set :SysbarReleaseDate $RELEASE_DATE" "$APP/Contents/Info.plist"
